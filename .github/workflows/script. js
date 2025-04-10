@@ -1,0 +1,45 @@
+// تكامل مع arXiv API
+async function search() {
+    const query = document.getElementById('searchInput').value;
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = '<p class="loading">جاري البحث في المصادر الأكاديمية...</p>';
+
+    try {
+        // استبدل هذا الرابط بـ API حقيقي لاحقًا
+        const mockData = [
+            {
+                title: "التعلم العميق في التشخيص الطبي",
+                authors: ["أحمد محمد", "ليلى عبدالله"],
+                year: 2023,
+                pdf: "#"
+            },
+            {
+                title: "تطبيقات الذكاء الاصطناعي في التعليم",
+                authors: ["خالد سعيد"],
+                year: 2022,
+                pdf: "#"
+            }
+        ];
+
+        displayResults(mockData);
+    } catch (error) {
+        resultsDiv.innerHTML = '<p class="error">حدث خطأ أثناء البحث. يرجى المحاولة لاحقًا</p>';
+    }
+}
+
+function displayResults(articles) {
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = '';
+
+    articles.forEach(article => {
+        const card = document.createElement('div');
+        card.className = 'result-card';
+        card.innerHTML = `
+            <h3>${article.title}</h3>
+            <p><strong>المؤلفون:</strong> ${article.authors.join('، ')}</p>
+            <p><strong>السنة:</strong> ${article.year}</p>
+            <a href="${article.pdf}" class="pdf-link" target="_blank">عرض البحث</a>
+        `;
+        resultsDiv.appendChild(card);
+    });
+}
